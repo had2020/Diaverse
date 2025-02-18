@@ -8,13 +8,22 @@ pub struct Storage {
     pub max_chucks_shape: Shape,
 }
 
+impl Storage {
+    pub fn create_new(chucks_shape: Shape) -> Self {
+        Storage {
+            location: "test".to_string(),
+            max_chucks_shape: chucks_shape,
+        }
+    }
+}
+
 pub struct Atom {
     pub denisty: f32,
     pub heat: f32,
 }
 
 pub struct Chunk {
-    pub max_Shape: Shape,
+    pub max_shape: Shape,
     pub atoms: Vec<Vec<Atom>>,
 }
 
