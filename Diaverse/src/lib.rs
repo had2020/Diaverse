@@ -9,12 +9,12 @@ pub struct Storage {
 }
 
 impl Storage {
-    pub fn create_new(chucks_shape: Shape, filename: String) -> Self {
+    pub fn create_new(chucks_shape: Shape, filename: &str) -> Self {
         use std::fs::File;
-        use std::io::prelude::*;
+        //use std::io::prelude::*;
 
-        let mut file = File::create(&filename).unwrap();
-        file.write_all("test".as_bytes()).unwrap();
+        let mut file = File::create(filename).unwrap();
+        //file.write_all("test".as_bytes()).unwrap();
         Storage {
             location: "test".to_string(),
             max_chucks_shape: chucks_shape,
