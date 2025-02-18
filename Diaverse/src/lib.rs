@@ -1,3 +1,8 @@
+// Diaverse
+// By: Hadrian Lazic
+
+use std::fs::File;
+
 pub struct Shape {
     pub x: i32,
     pub y: i32,
@@ -8,15 +13,15 @@ pub struct Storage {
     pub max_chucks_shape: Shape,
 }
 
+pub fn generate_chunk(storage: Storage) {
+    for row in 0..storage.max_chucks_shape.x {}
+}
+
 impl Storage {
     pub fn create_new(chucks_shape: Shape, filename: &str) -> Self {
-        use std::fs::File;
-        //use std::io::prelude::*;
-
-        let mut file = File::create(filename).unwrap();
-        //file.write_all("test".as_bytes()).unwrap();
+        File::create(filename).unwrap();
         Storage {
-            location: "test".to_string(),
+            location: filename.to_string(),
             max_chucks_shape: chucks_shape,
         }
     }
