@@ -1,3 +1,3 @@
 fn main() {
-    println!("Hello, world!");
+    println!("The maximum f16 value is: {}", f32::MAX);
 }
