@@ -20,8 +20,9 @@ pub fn generate_chunk(storage: Storage) {
     for row in 0..storage.max_chucks_shape.x {
         for col in 0..storage.max_chucks_shape.y {
             chunk[row as usize].push(Atom {
-                denisty: blank,
+                density: blank,
                 heat: blank,
+                vibration: blank,
             });
         }
     }
@@ -38,8 +39,9 @@ impl Storage {
 }
 
 pub struct Atom {
-    pub denisty: f32,
+    pub density: f32,
     pub heat: f32,
+    pub vibration: f32,
 }
 
 pub struct Chunk {
