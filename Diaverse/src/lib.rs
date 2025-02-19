@@ -3,6 +3,7 @@
 
 use std::fs::File;
 
+#[derive(Clone, Debug)]
 pub struct Shape {
     pub x: i32,
     pub y: i32,
@@ -13,23 +14,24 @@ pub struct Storage {
     pub max_chucks_shape: Shape,
 }
 
-pub fn generate_chunk(storage: &mut Storage) {
-    let mut new_chunk: Chunk {
-        max_shape: max_chucks_shape,
-    }
+pub fn generate_chunk(storage: Storage) {
+    let mut chunk: Vec<Vec<Atom>> = vec![];
+    let blank = 1.0;
     for row in 0..storage.max_chucks_shape.x {
-
-        for col in 0..storage.max_chucks_shape.y {}
+        for col in 0..storage.max_chucks_shape.y {
+            chunk[row as usize].push(Atom {
+                denisty: blank,
+                heat: blank,
+            });
+        }
     }
-
-    println!(":?", new_chunk);
 }
 
 impl Storage {
-    pub fn create_new(chucks_shape: Shape, filename: &str) -> Self {
-        File::create(filename).unwrap();
+    pub fn create_new(chucks_shape: Shape, save_file_path: &str) -> Self {
+        File::create(save_file_path).unwrap();
         Storage {
-            location: filename.to_string(),
+            location: save_file_path.to_string(),
             max_chucks_shape: chucks_shape,
         }
     }
