@@ -12,6 +12,7 @@ pub struct Shape {
 pub struct Storage {
     pub location: String,
     pub max_chucks_shape: Shape,
+    pub loaded_chucks: Vec<Chunk>,
 }
 
 pub fn generate_chunk(storage: Storage) {
