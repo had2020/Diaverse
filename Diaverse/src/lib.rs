@@ -13,8 +13,16 @@ pub struct Storage {
     pub max_chucks_shape: Shape,
 }
 
-pub fn generate_chunk(storage: Storage) {
-    for row in 0..storage.max_chucks_shape.x {}
+pub fn generate_chunk(storage: &mut Storage) {
+    let mut new_chunk: Chunk {
+        max_shape: max_chucks_shape,
+    }
+    for row in 0..storage.max_chucks_shape.x {
+
+        for col in 0..storage.max_chucks_shape.y {}
+    }
+
+    println!(":?", new_chunk);
 }
 
 impl Storage {
