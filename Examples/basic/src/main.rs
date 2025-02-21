@@ -25,7 +25,7 @@ fn main() {
     for chunk in stored_world.loaded_chucks.iter() {
         for row in &chunk.atoms {
             for col in row {
-                let x = col;
+                let x = col.mass * col.density;
                 println!("{:?}", x);
             }
         }
