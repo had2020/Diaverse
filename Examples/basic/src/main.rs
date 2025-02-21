@@ -1,13 +1,14 @@
+use minifb::Key;
 use Diaverse::*;
 
 fn main() {
     //let mut (window, buffer) = window_init(800, 600, "Diaverse");
-    let win = Window_session::init(800, 600, "Diaverse");
+    let mut win = Window_session::init(800, 600, "Diaverse");
     let stored_world: Storage = Storage::create_new(Shape { x: 2, y: 2 }, "world/test.txt");
     generate_chunk(stored_world);
 
     // draw red pixel at 10,10 for test
-    let index = (10 * width + 10) as usize;
+    let index = (10 * win.width + 10) as usize;
     win.buffer[index] = 0xFF0000FF; // works blue, TODO color for float
 
     // window frame time render loop
