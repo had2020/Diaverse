@@ -1,11 +1,19 @@
 use Diaverse::*;
 
 fn main() {
-    let mut (window, buffer) = window_init();
+    //let mut (window, buffer) = window_init(800, 600, "Diaverse");
+    let win = Window_session::init(800, 600, "Diaverse");
     let stored_world: Storage = Storage::create_new(Shape { x: 2, y: 2 }, "world/test.txt");
     generate_chunk(stored_world);
 
-    while window.is_open() && !window.is_key_down(Key::Escape) {
-        window.update_with_buffer(&buffer, width, height).unwrap();
+    // draw red pixel at 10,10 for test
+    let index = (10 * width + 10) as usize;
+    win.buffer[index] = 0xFF0000FF; // works blue, TODO color for float
+
+    // window frame time render loop
+    while win.window.is_open() && !win.window.is_key_down(Key::Escape) {
+        win.window
+            .update_with_buffer(&win.buffer, win.width, win.height)
+            .unwrap();
     }
 }

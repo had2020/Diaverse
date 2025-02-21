@@ -54,9 +54,33 @@ pub struct Chunk {
     pub atoms: Vec<Vec<Atom>>,
 }
 
+pub struct Window_session {
+    pub width: usize,
+    pub height: usize,
+    pub window: Window,
+    pub buffer: Vec<u32>,
+}
+
 use minifb::{Key, Window, WindowOptions};
 
 /// Good size is 800, 600
+impl Window_session {
+    pub fn init(width: usize, height: usize, name: &str) -> Self {
+        let window = Window::new(name, width, height, WindowOptions::default())
+            .expect("Unable to open window");
+
+        //1D array of pixels
+        let buffer: Vec<u32> = vec![0x00; width * height];
+
+        Window_session {
+            width: width,
+            height: height,
+            window: window,
+            buffer: buffer,
+        }
+    }
+}
+
 pub fn window_init(width: usize, height: usize, name: &str) -> (Window, Vec<u32>) {
     let window =
         Window::new(name, width, height, WindowOptions::default()).expect("Unable to open window");
