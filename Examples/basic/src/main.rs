@@ -4,10 +4,10 @@ use Diaverse::*;
 fn main() {
     //let mut (window, buffer) = window_init(800, 600, "Diaverse");
     let mut win = Window_session::init(800, 600, "Diaverse");
-    let stored_world: Storage = Storage::create_new(Shape { x: 2, y: 2 }, "world/test.txt");
+    let mut stored_world: World = World::create_new(Shape { x: 2, y: 2 }, "world/test.txt");
 
-    for chunk in 10 {
-        generate_chunk(stored_world);
+    for chunk in 0..10 {
+        generate_chunk(&mut stored_world);
     }
 
     // draw red pixel at 10,10 for test
@@ -21,7 +21,7 @@ fn main() {
             .unwrap();
     }
 
-    for chunk in 0..stored_world.loaded_chucks.iter() {
-        println!("{:?}", chunk);
+    for chunk in stored_world.loaded_chucks.iter() {
+        println!("{:?}", &stored_world.loaded_chucks);
     }
 }

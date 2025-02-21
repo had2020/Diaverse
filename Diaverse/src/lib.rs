@@ -9,13 +9,14 @@ pub struct Shape {
     pub y: i32,
 }
 
-pub struct Storage {
+#[derive(Clone, Debug)]
+pub struct World {
     pub location: String,
     pub max_chucks_shape: Shape,
     pub loaded_chucks: Vec<Chunk>,
 }
 
-pub fn generate_chunk(storage: Storage) {
+pub fn generate_chunk(storage: &mut World) {
     let mut chunk: Vec<Vec<Atom>> = vec![];
     let blank = 1.0;
     for row in 0..storage.max_chucks_shape.x {
@@ -29,12 +30,13 @@ pub fn generate_chunk(storage: Storage) {
             });
         }
     }
+    storage.loaded_chucks.push(Chunk { atoms: chunk });
 }
 
-impl Storage {
+impl World {
     pub fn create_new(chucks_shape: Shape, save_file_path: &str) -> Self {
         File::create(save_file_path).unwrap();
-        Storage {
+        World {
             location: save_file_path.to_string(),
             max_chucks_shape: chucks_shape,
             loaded_chucks: vec![],
@@ -42,6 +44,7 @@ impl Storage {
     }
 }
 
+#[derive(Clone, Debug)]
 pub struct Atom {
     pub mass: f32,
     pub density: f32,
@@ -49,8 +52,8 @@ pub struct Atom {
     pub vibration: f32,
 }
 
+#[derive(Clone, Debug)]
 pub struct Chunk {
-    pub max_shape: Shape,
     pub atoms: Vec<Vec<Atom>>,
 }
 
