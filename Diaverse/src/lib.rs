@@ -19,8 +19,10 @@ pub fn generate_chunk(storage: Storage) {
     let mut chunk: Vec<Vec<Atom>> = vec![];
     let blank = 1.0;
     for row in 0..storage.max_chucks_shape.x {
+        chunk.push(vec![]);
         for col in 0..storage.max_chucks_shape.y {
             chunk[row as usize].push(Atom {
+                mass: blank,
                 density: blank,
                 heat: blank,
                 vibration: blank,
@@ -35,11 +37,13 @@ impl Storage {
         Storage {
             location: save_file_path.to_string(),
             max_chucks_shape: chucks_shape,
+            loaded_chucks: vec![],
         }
     }
 }
 
 pub struct Atom {
+    pub mass: f32,
     pub density: f32,
     pub heat: f32,
     pub vibration: f32,
