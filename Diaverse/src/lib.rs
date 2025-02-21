@@ -64,7 +64,11 @@ pub fn window_init() {
         .expect("Unable to open window");
 
     //1D array of pixels
-    let mut buffer: Vec<u32> = vec![0x00FF00FF; width * height];
+    let mut buffer: Vec<u32> = vec![0x00; width * height];
+
+    // draw red pixel at 10,10 for test
+    let index = (10 * width + 10) as usize;
+    buffer[index] = 0xFF0000FF; // works blue, TODO color for float
 
     while window.is_open() && !window.is_key_down(Key::Escape) {
         window.update_with_buffer(&buffer, width, height).unwrap();
