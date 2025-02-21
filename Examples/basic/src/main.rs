@@ -21,7 +21,7 @@ fn main() {
             .unwrap();
     }
 
-    for chunk in stored_world.loaded_chucks.iter() {
-        println!("{:?}", chunk.density);
+    for chunk in 0..stored_world.loaded_chucks.iter() {
+        println!("{:?}", chunk);
     }
 }
