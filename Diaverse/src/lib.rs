@@ -56,21 +56,24 @@ pub struct Chunk {
 
 use minifb::{Key, Window, WindowOptions};
 
-pub fn window_init() {
-    let width = 800;
-    let height = 600;
-
-    let mut window = Window::new("Test", width, height, WindowOptions::default())
-        .expect("Unable to open window");
+/// Good size is 800, 600
+pub fn window_init(width: usize, height: usize, name: &str) -> (Window, Vec<u32>) {
+    let window =
+        Window::new(name, width, height, WindowOptions::default()).expect("Unable to open window");
 
     //1D array of pixels
-    let mut buffer: Vec<u32> = vec![0x00; width * height];
+    let buffer: Vec<u32> = vec![0x00; width * height];
 
+    /*
     // draw red pixel at 10,10 for test
     let index = (10 * width + 10) as usize;
     buffer[index] = 0xFF0000FF; // works blue, TODO color for float
+    */
 
+    /*
     while window.is_open() && !window.is_key_down(Key::Escape) {
         window.update_with_buffer(&buffer, width, height).unwrap();
     }
+    */
+    (window, buffer)
 }
