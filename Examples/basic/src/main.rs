@@ -10,7 +10,7 @@ fn main() {
         generate_chunk(&mut stored_world);
     }
 
-    //draw_pixel(&mut win, position!(10, 10), 0xFF0000FF);
+    //draw_pixel(&mut win, position!(1, 50), 0xFF0000FF);
 
     // window frame time render loop
     while win.window.is_open() && !win.window.is_key_down(Key::Escape) {

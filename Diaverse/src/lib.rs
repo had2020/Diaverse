@@ -115,19 +115,21 @@ pub fn draw_pixel(win: &mut Window_session, position: Position, color: u32) {
 
 pub fn render_chunks(stored_world: &World, win: &mut Window_session) {
     let mut last_chunk_start = Position { x: 0, y: 0 };
-    let mut iteration_element_position = Position { x: 0, y: 0 };
+    let mut iteration_element_position = Position { x: 0, y: 1 };
+
     for (chunk_index, chunk) in stored_world.loaded_chucks.iter().enumerate() {
         last_chunk_start = iteration_element_position.clone();
         iteration_element_position.x += stored_world.max_chucks_shape.x as usize;
+
         for (row_index, row) in chunk.atoms.iter().enumerate() {
-            iteration_element_position.x += 1;
+            iteration_element_position.y += 1;
+
             for (col_index, col) in row.iter().enumerate() {
-                iteration_element_position.y += 1;
+                iteration_element_position.x += 1;
                 let x = col.mass * col.density;
-                //println!("{:?}", x);
                 draw_pixel(win, iteration_element_position.clone(), 0xFF0000FF);
+                //iteration_element_position.x = last_chunk_start.x
             }
-            iteration_element_position.x = 0;
         }
     }
 }
