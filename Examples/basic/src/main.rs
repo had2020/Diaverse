@@ -10,13 +10,11 @@ fn main() {
         generate_chunk(&mut stored_world);
     }
 
-    // draw red pixel at 10,10 for test
-    let index = (10 * win.width + 10) as usize;
-    win.buffer[index] = 0xFF0000FF; // works blue, TODO color for float
+    //draw_pixel(&mut win, position!(10, 10), 0xFF0000FF);
 
     // window frame time render loop
     while win.window.is_open() && !win.window.is_key_down(Key::Escape) {
-        render_chunks(&stored_world);
+        render_chunks(&stored_world, &mut win);
 
         win.window
             .update_with_buffer(&win.buffer, win.width, win.height)
