@@ -16,18 +16,10 @@ fn main() {
 
     // window frame time render loop
     while win.window.is_open() && !win.window.is_key_down(Key::Escape) {
+        render_chunks(&stored_world);
+
         win.window
             .update_with_buffer(&win.buffer, win.width, win.height)
             .unwrap();
-    }
-
-    // observation find
-    for chunk in stored_world.loaded_chucks.iter() {
-        for row in &chunk.atoms {
-            for col in row {
-                let x = col.mass * col.density;
-                println!("{:?}", x);
-            }
-        }
     }
 }

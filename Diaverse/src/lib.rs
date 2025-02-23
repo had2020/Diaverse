@@ -35,7 +35,17 @@ pub fn generate_chunk(storage: &mut World) {
 
 impl World {
     pub fn create_new(chucks_shape: Shape, save_file_path: &str) -> Self {
-        File::create(save_file_path).unwrap();
+        //File::create(save_file_path).unwrap();
+
+        match std::fs::create_dir(save_file_path) {
+            Ok(_) => println!("Memory dir created ✅"),
+            Err(e) => {
+                if e.kind() == std::io::ErrorKind::NotFound {
+                    println!("Using existing file ✅");
+                }
+            }
+        }
+
         World {
             location: save_file_path.to_string(),
             max_chucks_shape: chucks_shape,
@@ -80,6 +90,17 @@ impl Window_session {
             height: height,
             window: window,
             buffer: buffer,
+        }
+    }
+}
+
+pub fn render_chunks(stored_world: &World) {
+    for (chunk_index, chunk) in stored_world.loaded_chucks.iter().enumerate() {
+        for (row_index, row) in chunk.atoms.iter().enumerate() {
+            for (col_index, col) in row.iter().enumerate() {
+                let x = col.mass * col.density;
+                println!("{:?}", x);
+            }
         }
     }
 }
