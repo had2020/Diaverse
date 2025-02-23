@@ -126,6 +126,7 @@ pub fn render_chunks(stored_world: &World, win: &mut Window_session) {
             for col in row.iter() {
                 iteration_element_position.x += 1;
                 //let x = col.mass * col.density;
+                let atom_color = color(col.mass as u8, col.density as u8, col.heat as u8);
                 draw_pixel(win, iteration_element_position.clone(), 0xFF0000FF);
             }
             iteration_element_position.x = offset.x;
@@ -155,4 +156,8 @@ pub fn window_init(width: usize, height: usize, name: &str) -> (Window, Vec<u32>
     }
     */
     (window, buffer)
+}
+
+pub fn color(red: u8, green: u8, blue: u8) -> u32 {
+    (255 << 24) | ((red as u32) << 16) | ((green as u32) << 8) | (blue as u32)
 }
