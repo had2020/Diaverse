@@ -67,6 +67,7 @@ pub struct Atom {
 #[derive(Clone, Debug)]
 pub struct Chunk {
     pub atoms: Vec<Vec<Atom>>,
+    pub change: bool,
 }
 
 pub struct Window_session {
@@ -148,6 +149,8 @@ pub fn render_chunks(stored_world: &World, win: &mut Window_session) {
 
 pub fn apply_heat(stored_world: &mut World, value: f32, chunk: usize, position: Position) {
     stored_world.loaded_chucks[chunk].atoms[position.x][position.y].heat = value;
+    stored_world.loaded_chucks[chunk].atoms[position.x][position.y].change = true;
+    stored_world.loaded_chucks[chunk].change = true;
 }
 
 pub fn window_init(width: usize, height: usize, name: &str) -> (Window, Vec<u32>) {
