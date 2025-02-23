@@ -27,6 +27,7 @@ pub fn generate_chunk(storage: &mut World) {
                 density: blank,
                 heat: blank,
                 vibration: blank,
+                change: false,
             });
         }
     }
@@ -60,6 +61,7 @@ pub struct Atom {
     pub density: f32,
     pub heat: f32,
     pub vibration: f32,
+    pub change: bool,
 }
 
 #[derive(Clone, Debug)]
@@ -72,6 +74,7 @@ pub struct Window_session {
     pub height: usize,
     pub window: Window,
     pub buffer: Vec<u32>,
+    pub observer_position: Position,
 }
 
 #[derive(Clone, Debug)]
@@ -104,6 +107,7 @@ impl Window_session {
             height: height,
             window: window,
             buffer: buffer,
+            observer_position: Position { x: 0, y: 0 },
         }
     }
 }
@@ -125,9 +129,14 @@ pub fn render_chunks(stored_world: &World, win: &mut Window_session) {
 
             for col in row.iter() {
                 iteration_element_position.x += 1;
-                //let x = col.mass * col.density;
-                let atom_color = color(col.mass as u8, col.density as u8, col.heat as u8);
-                draw_pixel(win, iteration_element_position.clone(), 0xFF0000FF);
+                let atom_color = match col.heat {
+                    h if h > 50.0 => hex_color("Red"),
+                    h if h > 30.0 => hex_color("Yellow"),
+                    h if h > 10.0 => hex_color("Green"),
+                    h if h > 0.9 => hex_color("Blue"),
+                    _ => 0,
+                };
+                draw_pixel(win, iteration_element_position.clone(), atom_color);
             }
             iteration_element_position.x = offset.x;
         }
@@ -135,6 +144,10 @@ pub fn render_chunks(stored_world: &World, win: &mut Window_session) {
         iteration_element_position.y = 0;
         offset.x += stored_world.max_chucks_shape.x as usize;
     }
+}
+
+pub fn apply_heat(stored_world: &mut World, value: f32, chunk: usize, position: Position) {
+    stored_world.loaded_chucks[chunk].atoms[position.x][position.y].heat = value;
 }
 
 pub fn window_init(width: usize, height: usize, name: &str) -> (Window, Vec<u32>) {
@@ -158,6 +171,22 @@ pub fn window_init(width: usize, height: usize, name: &str) -> (Window, Vec<u32>
     (window, buffer)
 }
 
-pub fn color(red: u8, green: u8, blue: u8) -> u32 {
-    (255 << 24) | ((red as u32) << 16) | ((green as u32) << 8) | (blue as u32)
+pub fn hex_color(name: &str) -> u32 {
+    let new_color: u32 = match name {
+        "Green" => 0xFF_00FF00,
+        "Red" => 0xFF_FF0000,
+        "Blue" => 0xFF_0000FF,
+        "Yellow" => 0xFF_FFFF00,
+        "Cyan" => 0xFF_00FFFF,
+        "Magenta" => 0xFF_FF00FF,
+        "White" => 0xFF_FFFFFF,
+        "Black" => 0xFF_000000,
+        "Gray" => 0xFF_808080,
+        "Orange" => 0xFF_FFA500,
+        "Purple" => 0xFF_800080,
+        "Pink" => 0xFF_FFC0CB,
+        "Brown" => 0xFF_A52A2A,
+        _ => 0xFF_FFC0CB,
+    };
+    new_color
 }
