@@ -109,28 +109,30 @@ impl Window_session {
 }
 
 pub fn draw_pixel(win: &mut Window_session, position: Position, color: u32) {
-    let index = (position.x * win.width + position.y) as usize;
+    let index = (position.y * win.width + position.x) as usize;
     win.buffer[index] = color;
 }
 
 pub fn render_chunks(stored_world: &World, win: &mut Window_session) {
-    let mut last_chunk_start = Position { x: 0, y: 0 };
-    let mut iteration_element_position = Position { x: 0, y: 1 };
+    let mut offset = Position { x: 0, y: 0 };
+    let mut iteration_element_position = Position { x: 0, y: 0 };
 
-    for (chunk_index, chunk) in stored_world.loaded_chucks.iter().enumerate() {
-        last_chunk_start = iteration_element_position.clone();
-        iteration_element_position.x += stored_world.max_chucks_shape.x as usize;
+    for chunk in stored_world.loaded_chucks.iter() {
+        iteration_element_position.x = offset.x;
 
-        for (row_index, row) in chunk.atoms.iter().enumerate() {
+        for row in chunk.atoms.iter() {
             iteration_element_position.y += 1;
 
-            for (col_index, col) in row.iter().enumerate() {
+            for col in row.iter() {
                 iteration_element_position.x += 1;
-                let x = col.mass * col.density;
+                //let x = col.mass * col.density;
                 draw_pixel(win, iteration_element_position.clone(), 0xFF0000FF);
-                //iteration_element_position.x = last_chunk_start.x
             }
+            iteration_element_position.x = offset.x;
         }
+
+        iteration_element_position.y = 0;
+        offset.x += stored_world.max_chucks_shape.x as usize;
     }
 }
 
