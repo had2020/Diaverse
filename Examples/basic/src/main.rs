@@ -4,7 +4,7 @@ use Diaverse::*;
 fn main() {
     //let mut (window, buffer) = window_init(800, 600, "Diaverse");
     let mut win = Window_session::init(800, 600, "Diaverse");
-    let mut stored_world: World = World::create_new(Shape { x: 2, y: 2 }, "world/test.txt");
+    let mut stored_world: World = World::create_new(Shape { x: 10, y: 10 }, "world/test.txt");
 
     for chunk in 0..2 {
         generate_chunk(&mut stored_world);
