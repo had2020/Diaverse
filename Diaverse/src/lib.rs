@@ -210,8 +210,8 @@ pub fn find_neighbors_indices(element: Position) -> Vec<Position> {
 }
 
 //TODO heat update on each chunk
-pub fn chunk_heat_tick() {
-    todo!()
+pub fn chunk_heat_tick(stored_world: &mut World) {
+    for chunk in stored_world.loaded_chucks {}
 }
 
 pub fn tick() {
