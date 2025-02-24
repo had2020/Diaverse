@@ -188,3 +188,11 @@ pub fn hex_color(name: &str) -> u32 {
     };
     new_color
 }
+
+//TODO heat update on each chunk
+pub fn find_neighbors_indices(element: Position) /* -> Vec<Position> */ {
+    left_n: Position = element.x - 1;
+    right_n:Position =
+    top_n:Position =
+    buttom_n:Position =
+}
